@@ -3,6 +3,5 @@ language: java
 java:
  - 1.8.0_151
 
-env:
-  global:
-    - COVERALLS_REPO_TOKEN=4U1aGw1nUOKPTttEe8bct9Ke1np0cYdE0
+after_success:
+- ./gradlew pitest coveralls
