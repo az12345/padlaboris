@@ -1,25 +1,25 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.8.BUILD-SNAPSHOT'
-	}
-	repositories {
-		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.8.BUILD-SNAPSHOT'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 plugins {
-	id "info.solidsoft.pitest" version '1.1.11'
-	id 'com.github.kt3k.coveralls' version '2.8.1'
+    id "info.solidsoft.pitest" version '1.1.11'
+    id 'com.github.kt3k.coveralls' version '2.8.1'
 }
 
 pitest {
-	timestampedReports = false
-	outputFormats = ['XML']
+    timestampedReports = false
+    outputFormats = ['XML']
 }
 
 apply plugin: 'java'
@@ -36,61 +36,61 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 test {
-	include '**/*Test.*'
-	testLogging {
-		afterSuite { desc, result ->
-			if (!desc.parent) { // will match the outermost suite
-				println "Results: ${result.resultType} (${result.testCount} tests, " +
-						"${result.successfulTestCount} successes, ${result.failedTestCount} failures, " +
-						"${result.skippedTestCount} skipped)"
-			}
-		}
-	}
-	jacoco {
-		append = false
-		destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
-		classDumpDir = file("$buildDir/jacoco/classpathdumps")
-	}
+    include '**/*Test.*'
+    testLogging {
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                println "Results: ${result.resultType} (${result.testCount} tests, " +
+                        "${result.successfulTestCount} successes, ${result.failedTestCount} failures, " +
+                        "${result.skippedTestCount} skipped)"
+            }
+        }
+    }
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
 }
 
 jacocoTestReport {
-	reports {
-		xml.enabled true
-		csv.enabled false
-		html.destination "${buildDir}/reports/jacocoHtml"
-	}
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacocoHtml"
+    }
 }
 
 test.finalizedBy jacocoTestReport
 
 task integrationTest(type: Test) {
-	include '**/*IT.*'
-	jacoco {
-		append = false
-		destinationFile = file("$buildDir/jacoco/integrationTest.exec")
-		classDumpDir = file("$buildDir/jacoco/classpathdumpsIT")
-	}
-	testLogging {
-		afterSuite { desc, result ->
-			if (!desc.parent) { // will match the outermost suite
-				println "Results: ${result.resultType} (${result.testCount} tests, " +
-						"${result.successfulTestCount} successes, ${result.failedTestCount} failures, " +
-						"${result.skippedTestCount} skipped)"
-			}
-		}
-	}
+    include '**/*IT.*'
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/integrationTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumpsIT")
+    }
+    testLogging {
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                println "Results: ${result.resultType} (${result.testCount} tests, " +
+                        "${result.successfulTestCount} successes, ${result.failedTestCount} failures, " +
+                        "${result.skippedTestCount} skipped)"
+            }
+        }
+    }
 }
 
 integrationTest.shouldRunAfter test
