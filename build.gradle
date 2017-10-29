@@ -92,6 +92,3 @@ task integrationTest(type: Test) {
         }
     }
 }
-
-integrationTest.shouldRunAfter test
-build.dependsOn integrationTest
