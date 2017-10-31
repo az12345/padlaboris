@@ -9,6 +9,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "gradle.plugin.com.heroku.sdk:heroku-gradle:0.3.0"
     }
 }
 
@@ -25,11 +26,14 @@ pitest {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: "com.heroku.sdk.heroku-gradle"
 
 apply from: 'quality/checkstyle/checkstyle.gradle'
 apply from: 'quality/pmd/pmd.gradle'
 apply from: 'quality/findbugs/findbugs.gradle'
 apply from: 'quality/codecoverage/jacoco.gradle'
+
+
 
 group = 'com.instinctools.padlaboris'
 version = '0.0.1-SNAPSHOT'
@@ -44,6 +48,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile ('com.heroku.sdk:heroku-deploy:1.1.1')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
