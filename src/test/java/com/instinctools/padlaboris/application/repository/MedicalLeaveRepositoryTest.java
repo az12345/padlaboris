@@ -1,7 +1,6 @@
 package com.instinctools.padlaboris.application.repository;
 
 import com.instinctools.padlaboris.application.model.MedicalLeave;
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -42,6 +42,6 @@ public class MedicalLeaveRepositoryTest {
 
         final List<MedicalLeave> medicalLeaves = medicalLeaveRepository.findByStartDate(startDate);
 
-        assertThat(medicalLeaves.get(0).getStartDate(), Is.is(startDate));
+        assertThat(medicalLeaves.get(0).getStartDate(), is(startDate));
     }
 }

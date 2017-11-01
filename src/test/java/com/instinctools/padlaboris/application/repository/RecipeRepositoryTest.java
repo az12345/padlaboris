@@ -1,7 +1,6 @@
 package com.instinctools.padlaboris.application.repository;
 
 import com.instinctools.padlaboris.application.model.Recipe;
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -41,6 +41,6 @@ public class RecipeRepositoryTest {
 
         final List<Recipe> recipes = recipeRepository.findByMedicineName(medicineName);
 
-        assertThat(recipes.get(0).getMedicineName(), Is.is(medicineName));
+        assertThat(recipes.get(0).getMedicineName(), is(medicineName));
     }
 }
