@@ -1,6 +1,8 @@
 package com.instinctools.padlaboris.application.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.data.domain.Persistable;
 
@@ -14,6 +16,8 @@ import java.util.Objects;
  */
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "recipe")
 public class Recipe implements Persistable<Integer> {
 

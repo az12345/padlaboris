@@ -1,41 +1,46 @@
 package com.instinctools.padlaboris.application.repository;
 
 import com.instinctools.padlaboris.application.model.Recipe;
+import org.hamcrest.core.Is;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class RecipeRepositoryTest {
 
     @Autowired
-    private TestEntityManager entityManager;
-
-    @Autowired
     private RecipeRepository recipeRepository;
 
+    @Before
+    public void setUp() {
+
+        final Recipe recipe = new Recipe();
+
+        recipe.setIssueDate(new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime());
+        recipe.setExpireDate(new GregorianCalendar(2015, Calendar.FEBRUARY, 11).getTime());
+        recipe.setMedicineName("abc");
+        recipe.setDosage("4ml");
+
+        recipeRepository.save(recipe);
+    }
     @Test
     public void findByMedicineName() {
 
-        final Date date = new Date(new Date().getTime());
+        final String medicineName = "abc";
 
-        final Recipe recipe = new Recipe(date,
-                date, "abc", "abc");
+        final List<Recipe> recipes = recipeRepository.findByMedicineName(medicineName);
 
-        entityManager.persist(recipe);
-
-        final List<Recipe> recipes = recipeRepository.findByMedicineName("abc");
-
-        for (Recipe foundRecipe : recipes) {
-            assert recipe.getMedicineName().equals(foundRecipe.getMedicineName());
-        }
+        assertThat(recipes.get(0).getMedicineName(), Is.is(medicineName));
     }
 }

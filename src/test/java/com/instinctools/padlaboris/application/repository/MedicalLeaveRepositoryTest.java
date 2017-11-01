@@ -1,40 +1,47 @@
 package com.instinctools.padlaboris.application.repository;
 
 import com.instinctools.padlaboris.application.model.MedicalLeave;
+import org.hamcrest.core.Is;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class MedicalLeaveRepositoryTest {
 
     @Autowired
-    private TestEntityManager entityManager;
-
-    @Autowired
     private MedicalLeaveRepository medicalLeaveRepository;
+
+    @Before
+    public void setUp() {
+
+        final MedicalLeave medicalLeave = new MedicalLeave();
+
+        medicalLeave.setStartDate(new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime());
+        medicalLeave.setEndDate(new GregorianCalendar(2015, Calendar.FEBRUARY, 11).getTime());
+
+        medicalLeaveRepository.save(medicalLeave);
+    }
+
 
     @Test
     public void findByStartDate() {
 
-        final Date date = new Date(new Date().getTime());
+        final Date startDate = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
 
-        final MedicalLeave medicalLeave = new MedicalLeave(date,
-                new Date(new Date().getTime()));
+        final List<MedicalLeave> medicalLeaves = medicalLeaveRepository.findByStartDate(startDate);
 
-        entityManager.persist(medicalLeave);
-
-        final List<MedicalLeave> medicalLeaves = medicalLeaveRepository.findByStartDate(date);
-
-        for (MedicalLeave foundMedicalLeave : medicalLeaves) {
-            assert medicalLeave.getStartDate().equals(foundMedicalLeave.getStartDate());
-        }
+        assertThat(medicalLeaves.get(0).getStartDate(), Is.is(startDate));
     }
 }
