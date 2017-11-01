@@ -1,8 +1,6 @@
 version: '3.1'
 
 services:
-	  postgres:
-	    image: postgres:latest
   db:
     container_name: Padla_Boris_container
     image: postgres:9.6.5-alpine
