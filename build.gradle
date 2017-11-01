@@ -48,15 +48,10 @@ dependencies {
      */
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
-    /**
-     * Other
-     */
-    compile("com.h2database:h2")
-    compileOnly('org.projectlombok:lombok')
-    /**
-     * Test dependencies
-     */
+    compile('org.projectlombok:lombok')
+    compile("net.sf.dozer:dozer:$dozerVersion")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('com.h2database:h2')
 }
 
 test {
@@ -104,3 +99,6 @@ task integrationTest(type: Test) {
         }
     }
 }
+
+integrationTest.shouldRunAfter test
+build.dependsOn integrationTest
