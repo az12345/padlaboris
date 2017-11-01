@@ -23,7 +23,7 @@ public interface PatientService {
      * @param id Patient id.
      * @return object of patient class with this id.
      */
-    Patient read(Integer id);
+    Patient fetch(Integer id);
 
     /**
      * Method for update patient to database.
