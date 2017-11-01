@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: Padla_Boris_container
+    image: postgres:9.6.5-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=Padla_Boris
+      - POSTGRES_PASSWORD=Padla_Boris
+      - POSTGRES_DB=Padla_Boris_DB
