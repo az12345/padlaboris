@@ -1,4 +1,4 @@
-package com.instinctools.padlaboris.application.model;
+package com.instinctools.padlaboris.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

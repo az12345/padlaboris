@@ -1,6 +1,7 @@
 package com.instinctools.padlaboris.application.repository;
 
-import com.instinctools.padlaboris.application.model.Recipe;
+import com.instinctools.padlaboris.model.Recipe;
+import com.instinctools.padlaboris.repository.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

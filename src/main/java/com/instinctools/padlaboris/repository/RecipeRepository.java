@@ -1,6 +1,6 @@
-package com.instinctools.padlaboris.application.repository;
+package com.instinctools.padlaboris.repository;
 
-import com.instinctools.padlaboris.application.model.Recipe;
+import com.instinctools.padlaboris.model.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
