@@ -7,39 +7,71 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 import static org.junit.Assert.assertThat;
 
-import java.util.List;
-
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest
 public class DefaultPatientServiceTest {
+
+    @Autowired
+    private PatientService patientService;
 
     @Autowired
     private PatientRepository patientRepository;
 
-    @Before
-    public void setUp() {
+    private Integer id;
 
-        final Patient patient = new Patient();
+    private Patient patient;
+
+    @Before
+    public void setUp() throws Exception {
+
+        patient = new Patient();
 
         patient.setLastName("lastName");
         patient.setGender("male");
 
-        patientRepository.save(patient);
+        id = patientRepository.save(patient).getId();
     }
 
     @Test
-    public void findByGender() throws Exception {
+    public void create() throws Exception {
 
-        final String content = "male";
+        final String content = "newPatientLastName";
 
-        final List<Patient> patients = patientRepository.findByGender(content);
+        patient.setLastName(content);
 
-        assertThat(patients.get(0).getGender(), Is.is(content));
+        final Patient saved = patientService.create(patient);
+
+        assertThat(saved.getLastName(), Is.is(content));
+    }
+
+    @Test
+    @Transactional
+    public void update() throws Exception {
+
+        final String content = "updatePatientLastName";
+
+        final Patient updatePatient = patientRepository.findOne(id);
+
+        updatePatient.setLastName(content);
+        patientService.update(updatePatient);
+
+        assertThat(patientRepository.findOne(id).getLastName(), Is.is(content));
+    }
+
+    @Test
+    public void fetch() throws Exception {
+
+        final String content = "lastName";
+
+        assertThat(patientService.fetch(id).getLastName(), Is.is(content));
     }
 
     @Test
@@ -47,8 +79,26 @@ public class DefaultPatientServiceTest {
 
         final String content = "lastName";
 
-        final List<Patient> patients = patientRepository.findByLastName(content);
+        final List<Patient> patients = patientService.findByLastName(content);
 
         assertThat(patients.get(0).getLastName(), Is.is(content));
+    }
+
+    @Test
+    public void findByGender() throws Exception {
+
+        final String content = "male";
+
+        final List<Patient> patients = patientService.findByGender(content);
+
+        assertThat(patients.get(0).getGender(), Is.is(content));
+    }
+
+    @Test
+    public void delete() throws Exception {
+
+        patientService.delete(id);
+
+        assertThat(patientRepository.exists(id), Is.is(false));
     }
 }

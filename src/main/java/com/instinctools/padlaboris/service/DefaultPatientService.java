@@ -31,7 +31,7 @@ public class DefaultPatientService implements PatientService {
 
 
     @Override
-    public Patient read(final Integer id) {
+    public Patient fetch(final Integer id) {
 
         log.info("Patient displayed.");
 
