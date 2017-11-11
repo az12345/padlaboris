@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * class that implements the Disease's work and databases.
+ */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DefaultDiseaseService implements DiseaseService {
@@ -21,43 +24,57 @@ public class DefaultDiseaseService implements DiseaseService {
     }
 
     @Override
-    public List<Disease> findByDiseaseName(String diseaseName) {
+    public List<Disease> findByDiseaseName(final String diseaseName) {
+
         return diseaseRepository.findByDiseaseName(diseaseName);
+
     }
 
     @Override
-    public List<Disease> findByDiseaseCode(String diseaseCode) {
+    public List<Disease> findByDiseaseCode(final String diseaseCode) {
         return diseaseRepository.findByDiseaseCode(diseaseCode);
     }
 
     @Override
-    public List<Disease> findByDiseaseClass(String diseaseClass) {
+    public List<Disease> findByDiseaseClass(final String diseaseClass) {
+
         return diseaseRepository.findByDiseaseClass(diseaseClass);
+
     }
 
     @Override
-    public Disease findById(Integer id) {
+    public Disease findById(final Integer id) {
+
         //todo custom exception
         return Optional.ofNullable(diseaseRepository.findOne(id)).orElseThrow(RuntimeException::new);
+
     }
 
     @Override
-    public Disease save(Disease disease) {
+    public Disease save(final Disease disease) {
+
         return diseaseRepository.save(disease);
+
     }
 
     @Override
-    public void delete(Disease disease) {
+    public void delete(final Disease disease) {
+
         diseaseRepository.delete(disease);
+
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(final Integer id) {
+
         diseaseRepository.delete(id);
+
     }
 
     @Override
-    public boolean exists(Integer id) {
+    public boolean exists(final Integer id) {
+
         return diseaseRepository.exists(id);
+
     }
 }

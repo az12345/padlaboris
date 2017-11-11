@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * class that implements the Patient's work and databases.
  */
 @Service
 @Slf4j
-@Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DefaultPatientService implements PatientService {
 
@@ -36,14 +36,6 @@ public class DefaultPatientService implements PatientService {
         log.info("Patient displayed.");
 
         return patientRepository.findOne(id);
-    }
-
-    @Override
-    public Patient update(final Patient patient) {
-
-        log.info("Patient updated.");
-
-        return patientRepository.save(patient);
     }
 
     @Override
@@ -76,5 +68,21 @@ public class DefaultPatientService implements PatientService {
         log.info("All patients were displayed");
 
         return patientRepository.findAll();
+    }
+
+    @Override
+    public Patient updateById(final Integer id, final Patient patient) {
+
+        final Patient saved = patientRepository.findOne(id);
+
+        patientRepository.updateById(id,
+                Objects.isNull(patient.getLastName()) ? saved.getLastName() : patient.getLastName(),
+                Objects.isNull(patient.getFirstName()) ? saved.getFirstName() : patient.getFirstName(),
+                Objects.isNull(patient.getGender()) ? saved.getGender() : patient.getGender(),
+                Objects.isNull(patient.getHomeNumber()) ? saved.getHomeNumber() : patient.getHomeNumber(),
+                Objects.isNull(patient.getMobileNumber()) ? saved.getMobileNumber() : patient.getMobileNumber(),
+                Objects.isNull(patient.getDeathDate()) ? saved.getDeathDate() : patient.getDeathDate());
+
+        return saved;
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.assertThat;
@@ -53,7 +52,6 @@ public class DefaultPatientServiceTest {
     }
 
     @Test
-    @Transactional
     public void update() throws Exception {
 
         final String content = "updatePatientLastName";
@@ -61,7 +59,8 @@ public class DefaultPatientServiceTest {
         final Patient updatePatient = patientRepository.findOne(id);
 
         updatePatient.setLastName(content);
-        patientService.update(updatePatient);
+
+        patientService.updateById(id, updatePatient);
 
         assertThat(patientRepository.findOne(id).getLastName(), Is.is(content));
     }

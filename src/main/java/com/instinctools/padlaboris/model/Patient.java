@@ -61,7 +61,7 @@ public class Patient implements Persistable<Integer> {
     private Date deathDate;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "details_id")
+    @JoinColumn(name = "owner_id", referencedColumnName = "detail_id")
     private Detail details;
 
     @Override

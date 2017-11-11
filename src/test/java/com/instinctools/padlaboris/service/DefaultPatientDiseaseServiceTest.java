@@ -19,12 +19,12 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DefaultPatientDesiaseServiceTest {
+public class DefaultPatientDiseaseServiceTest {
 
     @Autowired
     PatientDiseaseRepository patientDiseaseRepository;
     @Autowired
-    PatientDesiaseService patientDesiaseService;
+    PatientDiseaseService patientDiseaseService;
 
     PatientDisease patientDisease;
     PatientDisease patientDisease2;
@@ -52,19 +52,19 @@ public class DefaultPatientDesiaseServiceTest {
 
     @Test
     public void create() throws Exception {
-        PatientDisease created = patientDesiaseService.create(patientDisease);
+        PatientDisease created = patientDiseaseService.create(patientDisease);
         assertEquals(created.getDeseaseCode(),patientDisease.getDeseaseCode());
     }
 
     @Test
     public void fetchById() throws Exception {
 
-        assertEquals(patientDisease, patientDesiaseService.fetchById(id));
+        assertEquals(patientDisease, patientDiseaseService.fetchById(id));
     }
 
     @Test
     public void fetchAll() throws Exception {
-        patientDiseaseList = (List<PatientDisease>) patientDesiaseService.fetchAll();
+        patientDiseaseList = (List<PatientDisease>) patientDiseaseService.fetchAll();
         assertEquals(patientDiseaseList.size(), 2);
     }
 
@@ -73,27 +73,27 @@ public class DefaultPatientDesiaseServiceTest {
     PatientDisease patientDiseaseNew = patientDisease;
     patientDiseaseNew.setDeseaseCode("1");
     patientDiseaseNew.setDeseaseDescription("2");
-    patientDesiaseService.updateById(id, patientDiseaseNew.getStartDate(), patientDiseaseNew.getEndDate(), patientDiseaseNew.getDeseaseCode(), patientDiseaseNew.getDeseaseDescription());
-    assertEquals(patientDiseaseNew.getDeseaseCode(), patientDesiaseService.fetchById(id).getDeseaseCode());
-    assertEquals(patientDiseaseNew.getDeseaseDescription(), patientDesiaseService.fetchById(id).getDeseaseDescription());
+    patientDiseaseService.updateById(id, patientDiseaseNew.getStartDate(), patientDiseaseNew.getEndDate(), patientDiseaseNew.getDeseaseCode(), patientDiseaseNew.getDeseaseDescription());
+    assertEquals(patientDiseaseNew.getDeseaseCode(), patientDiseaseService.fetchById(id).getDeseaseCode());
+    assertEquals(patientDiseaseNew.getDeseaseDescription(), patientDiseaseService.fetchById(id).getDeseaseDescription());
     }
 
     @Test
     public void deleteById() throws Exception {
-        patientDesiaseService.deleteById(id);
-        assertEquals(null, patientDesiaseService.fetchById(id) );
+        patientDiseaseService.deleteById(id);
+        assertEquals(null, patientDiseaseService.fetchById(id) );
 
     }
 
     @Test
     public void findStartDateBetween() throws Exception {
-        List<Date> dateList = patientDesiaseService.findStartDateBetween(patientDisease.getStartDate(), patientDisease2.getStartDate());
+        List<Date> dateList = patientDiseaseService.findStartDateBetween(patientDisease.getStartDate(), patientDisease2.getStartDate());
         assertEquals(dateList.size(), 2);
     }
 
     @Test
     public void findFinishDateBetween() throws Exception {
-        List<Date> dateList = patientDesiaseService.findFinishDateBetween(patientDisease.getEndDate(), patientDisease2.getEndDate());
+        List<Date> dateList = patientDiseaseService.findFinishDateBetween(patientDisease.getEndDate(), patientDisease2.getEndDate());
         assertEquals(dateList.size(), 2);
     }
 

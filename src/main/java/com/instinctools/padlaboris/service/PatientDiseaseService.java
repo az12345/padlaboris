@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * PatientDesiase service
  */
-public interface PatientDesiaseService {
+public interface PatientDiseaseService {
 
     /**
      * Create PatientDisease due {@link PatientDisease} entity.

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.instinctools.padlaboris.model.Detail;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,11 +14,14 @@ import java.io.Serializable;
  */
 @Data
 @JsonTypeName(value = "patient")
-@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE, include = JsonTypeInfo.As.WRAPPER_OBJECT)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = -2090141102525873071L;
+
+    @JsonProperty
+    private Integer id;
 
     @JsonProperty
     private String firstName;
@@ -42,4 +46,7 @@ public class PatientDto implements Serializable {
 
     @JsonProperty
     private long deathDate;
+
+    @JsonProperty
+    private Detail details;
 }

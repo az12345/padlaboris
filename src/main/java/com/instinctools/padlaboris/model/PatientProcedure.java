@@ -16,11 +16,14 @@ public class PatientProcedure implements Serializable {
     @Column(name= "unique_id", unique = true, nullable = false, insertable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer uniqueId;
+
     @Column(name="procedure_name")
     private String procedureName;
+
     @Column(name="date")
     @Temporal(TemporalType.DATE)
     private Date date;
+
     @Column(name="md")
     private String md;
 }

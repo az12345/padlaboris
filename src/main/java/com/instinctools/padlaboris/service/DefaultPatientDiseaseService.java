@@ -16,27 +16,34 @@ import java.util.Objects;
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class DefaultPatientDesiaseService implements PatientDesiaseService{
+public class DefaultPatientDiseaseService implements PatientDiseaseService {
 
     private final PatientDiseaseRepository patientDiseaseRepository;
 
     @Override
     public PatientDisease create(PatientDisease patientDisease) {
+
         return patientDiseaseRepository.save(patientDisease);
+
     }
 
     @Override
     public PatientDisease fetchById(Integer id) {
+
         return patientDiseaseRepository.findOne(id);
+
     }
 
     @Override
     public List<PatientDisease> fetchAll() {
+
         return (List<PatientDisease>) patientDiseaseRepository.findAll();
+
     }
 
     @Override
     public PatientDisease updateById(Integer id, Date startDate, Date endDate, String deseaseCode, String deseaseDescription) {
+
         final PatientDisease patientDiseaseUpdate = fetchById(id);
         patientDiseaseRepository.updateOneById(id,
                 Objects.isNull(startDate) ? patientDiseaseUpdate.getStartDate() : startDate,
@@ -45,25 +52,32 @@ public class DefaultPatientDesiaseService implements PatientDesiaseService{
                 Objects.isNull(deseaseDescription) ? patientDiseaseUpdate.getDeseaseDescription() : deseaseDescription
         );
         return fetchById(id) ;
+
     }
 
 
 
     @Override
     public PatientDisease deleteById(Integer id) {
+
         PatientDisease patientDisease = fetchById(id);
         patientDiseaseRepository.delete(id);
         return patientDisease;
+
     }
 
     @Override
     public List<Date> findStartDateBetween(Date start, Date finish) {
+
         return patientDiseaseRepository.findStartDateBetween(start, finish);
+
     }
 
     @Override
     public List<Date> findFinishDateBetween(Date start, Date finish) {
+
         return patientDiseaseRepository.findEndDateBetween(start,finish);
+
     }
 
 

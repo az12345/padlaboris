@@ -2,7 +2,6 @@ package com.instinctools.padlaboris.service;
 
 import com.instinctools.padlaboris.model.Disease;
 import com.instinctools.padlaboris.repository.DiseaseRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +18,11 @@ import static org.junit.Assert.*;
 public class DiseaseCrudTest {
 
     @Autowired
-    DiseaseRepository diseaseRepository;
+    private DiseaseRepository diseaseRepository;
 
     @Before
     public void init() {
-        Disease disease = new Disease(
+        final Disease disease = new Disease(
                 null,
                 "cancer",
                 "123",
@@ -35,7 +34,7 @@ public class DiseaseCrudTest {
 
     @Test
     public void testFind() {
-        List list = diseaseRepository.findAll();
+        final List list = diseaseRepository.findAll();
         assertEquals(1, list.size());
     }
 

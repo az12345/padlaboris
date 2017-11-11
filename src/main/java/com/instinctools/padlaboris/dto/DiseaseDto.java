@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Intermediate class of Disease and controller work.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

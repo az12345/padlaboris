@@ -1,4 +1,4 @@
-package com.instinctools.padlaboris.service;
+package com.instinctools.padlaboris.application.repository;
 
 import com.instinctools.padlaboris.model.Patient;
 import com.instinctools.padlaboris.repository.PatientRepository;
